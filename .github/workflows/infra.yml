@@ -77,8 +77,8 @@ jobs:
         tflint
       continue-on-error: true
 
-    - name: Select Workspace
-      run: terraform workspace select ${{ github.event.inputs.environment }} || terraform workspace new ${{ github.event.inputs.environment }}
+    # - name: Select Workspace
+    #   run: terraform workspace select ${{ github.event.inputs.environment }} || terraform workspace new ${{ github.event.inputs.environment }}
 
     - name: Generate Terraform Plan
       run: |
