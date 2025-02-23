@@ -64,7 +64,7 @@ jobs:
 
     - name: Initialize Terraform
       run: |
-        cd infrastructure/environment/${{ github.event.inputs.environment }}
+        cd infrastructure/environments/${{ github.event.inputs.environment }}
         terraform init
 
     - name: Install & Configure TFLint
@@ -82,7 +82,7 @@ jobs:
 
     - name: Generate Terraform Plan
       run: |
-        cd infrastructure/environment/${{ github.event.inputs.environment }}
+        cd infrastructure/environments/${{ github.event.inputs.environment }}
         terraform plan '-var-file=${{ github.event.inputs.environment }}.tfvars' -out=tfplan
 
     # - name: install lfs
@@ -105,5 +105,5 @@ jobs:
     - name: Terraform Apply 
       if: github.event_name == 'push' && github.ref == 'refs/heads/main' || github.event_name == 'workflow_dispatch'
       run: |
-        cd infrastructure/environment/${{ github.event.inputs.environment }}
+        cd infrastructure/environments/${{ github.event.inputs.environment }}
         terraform apply '-var-file=${{ github.event.inputs.environment }}.tfvars' -auto-approve
