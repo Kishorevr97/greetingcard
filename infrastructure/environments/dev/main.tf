@@ -1,17 +1,17 @@
 module "S3" {
-  source          = "./modules/S3"
-  src_bucket_name = "src-bucket-some-random-string"
-  dst_bucket_name = "dst-bucket-some-random-string"
+  source          = "../../modules/S3"
+  src_bucket_name = "src-bucket-kish"
+  dst_bucket_name = "dst-bucket-kish"
   tag_environment = var.environment
 }
 
 module "sqs" {
-  source          = "./modules/sqs"
+  source          = "../../modules/sqs"
   tag_environment = var.environment
 }
 
 module "lambdas" { 
-    source = "./modules/lambdas"
+    source = "../../modules/lambdas"
     depends_on = [ module.storage, module.sqs ]
     src_bucket_arn = module.storage.src_bucket_arn
     src_bucket_id = module.storage.src_bucket_id
@@ -23,7 +23,7 @@ module "lambdas" {
 }
 
 module "apigateway" {
-  source = "./modules/apigateway"
+  source = "../../modules/apigateway"
   depends_on = [ module.sqs ]
   greeting_queue_name = module.sqs.greeting_queue_name
   greeting_queue_arn = module.sqs.greeting_queue_arn
